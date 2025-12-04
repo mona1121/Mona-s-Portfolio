@@ -1,0 +1,418 @@
+/* Import the "Nunito" font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+/* Basic setup */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  overflow: hidden;
+}
+
+/* 1. The Monitor Bezel (WIDER AND GREYER) */
+.monitor-bezel {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  
+  /* Increased padding to make edges wider */
+  padding: 4.5vh 3.5vw; 
+  background: #D1D5DB; /* A more noticeable, neutral grey */
+  border-top: 4px solid #E5E7EB; /* 3D bevel highlights */
+  border-left: 4px solid #E5E7EB;
+  border-bottom: 4px solid #9CA3AF; /* 3D bevel shadows */
+  border-right: 4px solid #9CA3AF;
+  
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.3); 
+  display: flex;
+}
+
+/* 2. The Desktop "Screen" (Fits inside the bezel) */
+.desktop-background {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  
+  background-image: url('img/desktop.jpg');
+  background-size: cover;
+  background-position: center;
+  
+  border-radius: 6px;
+  overflow: hidden;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vh 2vw;
+}
+
+/* 3. The Main Window */
+.window {
+  width: 87%;
+  height: 90%;
+  background: rgba(230, 240, 255, 0.7);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 4. The Window's Title Bar (BUTTONS REMOVED) */
+.title-bar {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(200,210,230,0.6));
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* The button styles that were here are now gone */
+}
+
+/* 5. Main Content Container (Sidebar + Content) */
+.window-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* 6. Left Sidebar */
+.sidebar {
+  width: 150px;
+  background: rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  text-align: center;
+  color: #1E3A8A;
+}
+.sidebar .profile-icon {
+  width: 100px;
+  height: 100px;
+  background-image: url("img/pfp.png");
+  border-radius: 50%;
+  margin: 0 auto 15px auto;
+  border: 4px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  background-size: cover;
+  background-position: center;
+}
+.sidebar h1 {
+  font-size: 28px;
+  margin: 0 0 15px 0;
+}
+.sidebar .contact-info {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  font-size: 13px;
+}
+.sidebar .contact-info li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sidebar .contact-info i {
+  color: #3B82F6;
+  width: 16px;
+}
+
+/* 7. Right Content Area (Tabs + Content) */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* 8. Tab Navigation Bar (UPDATED FOR CLOSE BUTTON) */
+.tab-bar {
+  display: flex;
+  justify-content: space-between; /* Pushes button to the right */
+  align-items: center; /* Vertically centers button */
+  padding: 10px 10px 0 20px; /* Adjusted padding */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+.tab-bar-tabs {
+  display: flex; /* This new wrapper holds the tabs */
+}
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #374151;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+}
+.tab.active {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #1E3A8A;
+  font-weight: bold;
+}
+
+/* 9. Scrollable Content Area */
+.content-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  color: #111827;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.tab-content h2 {
+  font-size: 22px;
+  color: #1E3A8A;
+  margin-top: 0;
+  border-bottom: 2px solid #BFDBFE;
+  padding-bottom: 5px;
+}
+.entry { margin-bottom: 20px; }
+.entry-title { font-weight: bold; font-size: 16px; }
+.entry-subtitle { color: #4B5563; margin-bottom: 5px; }
+.entry-details { list-style-type: '– '; padding-left: 20px; }
+
+/* 10. NEW: CLOSE BUTTON FOR TAB BAR */
+.close-tab-btn {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: #64748B;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.close-tab-btn:hover {
+  background: #FEE2E2; /* Red background on hover */
+  color: #DC2626; /* Red text on hover */
+  border-color: #FCA5A5;
+}
+
+
+/* 1. The list container */
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Spacing between items */
+}
+
+/* 2. Each clickable item */
+.experience-item {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 3. Hover and Active (Clicked) states */
+.experience-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.experience-item.active {
+  box-shadow: 0 0 10px rgba(60, 130, 246, 0.5); /* Blue glow */
+  border-color: rgba(60, 130, 246, 0.8);
+}
+
+/* 4. The header part of the item (logo + info) */
+.exp-header {
+  display: flex;
+  align-items: center;
+}
+
+/* 5. The company logo placeholder */
+.exp-logo {
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  border-radius: 6px;
+  margin-right: 15px;
+  flex-shrink: 0;
+  
+  /* This ensures the image doesn't overflow the rounded corners */
+  overflow: hidden; 
+}
+
+.exp-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This "zooms" the image to fit, no stretching */
+}
+
+/* 6. The text info container */
+.exp-info {
+  flex: 1;
+}
+.exp-info h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E3A8A;
+}
+.exp-info p {
+  margin: 2px 0 0 0;
+  font-size: 14px;
+  color: #4B5563;
+}
+
+/* 7. The HIDDEN details panel */
+.experience-details {
+  /* This is the magic! Hidden by default. */
+  display: none; 
+  padding-top: 15px;
+  margin-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+}
+.experience-details.show {
+  /* This class (added by JS) makes it visible */
+  display: block; 
+}
+.experience-details h4 {
+  margin: 0 0 10px 0;
+  color: #1E3A8A;
+}
+/* This is a placeholder for your future images */
+.details-placeholder {
+  width: 100%;
+  height: 150px;
+  background: rgba(0,0,0,0.05);
+  border: 2px dashed #B0BEC5;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  color: #64748B;
+}
+
+/* Styles for the Dashboard Screenshot */
+.dashboard-screenshot {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.dashboard-screenshot img {
+  width: 100%;
+  display: block; /* Removes tiny space below image */
+}
+
+/* Styles for the Certificate Slider */
+.certificate-slider {
+  /* position: relative; */ /* <-- DELETE THIS LINE */
+  margin-top: 10px;
+  display: flex; /* <-- ADD THIS */
+  align-items: center; /* <-- ADD THIS */
+  gap: 8px; /* <-- ADD THIS (for spacing) */
+}
+.slider-viewport {
+  width: 100%;
+  overflow: hidden; 
+  border-radius: 6px;
+  flex: 1; /* <-- ADD THIS (tells it to fill the middle space) */
+}
+.slider-track {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+}
+.cert-image {
+  width: 100%;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Styles for the < and > Arrows */
+.slider-arrow {
+  /* --- DELETE ALL THESE LINES --- */
+  /* position: absolute; */
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+
+  /* --- KEEP/ADD THESE --- */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #3B82F6;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0; /* <-- ADD THIS (stops them from squishing) */
+}
+.slider-arrow:hover {
+  background: #3B82F6;
+  color: white;
+}
+
+/* Style for the subheadings (e.g., "Programming Languages") */
+.tab-content h3 {
+  font-size: 18px;
+  color: #3B82F6; /* Blue color */
+  margin-top: 25px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #D1D5DB;
+}
+
+/* The grid container */
+.skills-grid {
+  display: grid;
+  /* Creates a responsive grid that fits as many items as possible */
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
+}
+
+/* Individual skill item card */
+.skill-item {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover effect for the skill items */
+.skill-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* The icon style */
+.skill-item i {
+  font-size: 36px; /* Larger icon */
+  color: #1E3A8A; /* Dark blue */
+  margin-bottom: 10px;
+}
+
+/* The text label style */
+.skill-item span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151; /* Dark grey text */
+}
+
+/* --- END OF NEW CSS --- */
