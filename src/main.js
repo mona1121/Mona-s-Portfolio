@@ -1,311 +1,240 @@
 // === 1. IMPORTS ===
-// Get the main Three.js library
 import * as THREE from 'three';
-// Get the loader for GLB/GLTF 3D model files
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-// Get the camera controls (orbit, zoom, pan)
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-// Get the GSAP animation library (for smooth camera moves, glows, etc.)
+import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
 import gsap from 'gsap';
 
+// === 2. CONFIGURATION ===
+const WIDE_SHOT_POS = { x: 11.97, y: 19.59, z: -26.95 };
+const WIDE_SHOT_TARGET = { x: -0.95, y: 4.7, z: -2.39 };
 
-// --- Store our two camera shots ---
-const WIDE_SHOT_POS = { x: 8.5, y: 23, z: -36 }; // <-- YOUR wide shot position
-const WIDE_SHOT_TARGET = { x: 6.5, y: 2.4, z: -2.2 }; // <-- YOUR wide shot target
+const SIT_POS = { x: -3.4, y: 6.4, z: 3.27 }; 
+const SIT_TARGET = { x: -3.44, y: 6.16, z: 4.22 };
 
-// === 2. HTML ELEMENT GRABBERS ===
-// Find the <div> where the 3D canvas will live
 const container = document.getElementById('canvas-container');
-// Find the hidden <div> for the portfolio overlay
 const overlay = document.getElementById('overlay');
-// Find the 'X' button inside the overlay
 const closeBtn = document.getElementById('close-overlay');
-// Find the text hint at the bottom
 const uiHint = document.getElementById('ui-hint');
 
-// === 3. CORE THREE.JS SETUP ===
-// The Scene is the "world" that holds all your objects
+// === 3. CORE SETUP ===
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0f1720); // Set dark blue background
+scene.background = new THREE.Color(0x111111);
+scene.fog = new THREE.FogExp2(0x111111, 0.015);
 
-// The Renderer "draws" the scene onto the screen
 const renderer = new THREE.WebGLRenderer({ 
-    antialias: true, // Makes edges smoother
-    powerPreference: 'high-performance' // Asks browser to use the good GPU
+    antialias: true, 
+    powerPreference: 'high-performance' 
 });
-// Don't render at 8K if the user has a 4K screen. Max 2x pixel ratio.
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-// Make the renderer's canvas fill its container <div>
 renderer.setSize(container.clientWidth, container.clientHeight);
-renderer.shadowMap.enabled = true; // We want shadows!
-// Add the <canvas> element (created by the renderer) to our HTML page
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.5;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 container.appendChild(renderer.domElement);
 
-// The Camera is your "eye" in the world
 const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 200);
 camera.position.set(WIDE_SHOT_POS.x, WIDE_SHOT_POS.y, WIDE_SHOT_POS.z);
 
-// === 4. CAMERA CONTROLS ===
-// Lets you drag to orbit, scroll to zoom
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; // Adds a smooth "coasting" effect
-controls.dampingFactor = 0.1;
-controls.minDistance = 0.1; // How close you can zoom in
-controls.maxDistance = 100; // How far you can zoom out
-controls.target.set(WIDE_SHOT_TARGET.x, WIDE_SHOT_TARGET.y, WIDE_SHOT_TARGET.z); // What the camera "looks at"
-controls.update(); // Must be called after changing target/position
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.minDistance = 0.1;
+controls.maxDistance = 100;
+controls.target.set(WIDE_SHOT_TARGET.x, WIDE_SHOT_TARGET.y, WIDE_SHOT_TARGET.z);
+controls.maxPolarAngle = Math.PI / 2 - 0.1;
 
-window.myCamera = camera;
-window.myControls = controls;
+RectAreaLightUniformsLib.init();
 
-// === 5. LIGHTING ===
-// HemisphereLight: A cheap, "sky" light. (Sky color, ground color, intensity)
-const hemi = new THREE.HemisphereLight(0xffffff, 0x222233, 0.6);
-scene.add(hemi);
+// === 4. LIGHTING ===
+const hemiLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.6); 
+scene.add(hemiLight);
 
-// DirectionalLight: Acts like the "sun".
-const dir = new THREE.DirectionalLight(0xffffff, 0.9);
-dir.position.set(5, 10, 7); // Position it up and to the side
-dir.castShadow = true; // This light will create shadows
-dir.shadow.camera.near = 0.5; // Finetuning for shadow quality
-dir.shadow.camera.far = 50;
-scene.add(dir);
+const monitorLight = new THREE.RectAreaLight(0xaaccff, 10, 1.5, 1.0);
+monitorLight.position.set(0, 2.5, 0); 
+monitorLight.lookAt(0, 0, 5);
+scene.add(monitorLight);
 
-// AmbientLight: A subtle "fill" light that hits everything equally
-const ambient = new THREE.AmbientLight(0xffffff, 0.08);
-scene.add(ambient);
+// THE HERO SPOTLIGHT
+const deskSpotlight = new THREE.SpotLight(0xffdca4, 0); // Start at 0, we set it in loader
+deskSpotlight.angle = Math.PI / 3;
+deskSpotlight.penumbra = 0.4;
+deskSpotlight.decay = 2;
+deskSpotlight.distance = 100;
+deskSpotlight.castShadow = true;
+deskSpotlight.shadow.bias = -0.0001;
+// We create a dummy target object to ensure we can point it precisely
+const spotlightTarget = new THREE.Object3D();
+scene.add(deskSpotlight);
+scene.add(spotlightTarget);
+deskSpotlight.target = spotlightTarget; // Point light at this object
 
-// === 6. FLOOR ===
-// A simple flat plane to receive shadows
-const floorMat = new THREE.MeshStandardMaterial({ color: 0x0b1220, roughness: 1 });
-const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), floorMat);
-floor.rotation.x = -Math.PI / 2; // Rotate it to be flat
-floor.position.y = 0;
-floor.receiveShadow = true; // This object will have shadows cast ON it
-scene.add(floor);
+// Background Lights
+const backLight1 = new THREE.PointLight(0xffaa55, 1, 20);
+backLight1.position.set(8, 6, -8);
+scene.add(backLight1);
 
-// === 7. MODEL LOADING ===
-// Variables to hold our model parts
-let monitorMesh = null; // The clickable screen
-let deskRoot = null; // The whole desk model
+const backLight2 = new THREE.PointLight(0xaaffaa, 1.0, 25);
+backLight2.position.set(-10, 6, -5);
+scene.add(backLight2);
 
-// Initialize the GLB file loader
+
+// === 5. MODEL LOADING ===
+let monitorMesh = null;
+let targetDeskAnchor = null; // Defined here so it works!
+
 const loader = new GLTFLoader();
-const glbPath = '/assets/office.glb'; // This path is correct!
+loader.load('/assets/office.glb', (gltf) => {
+    const deskRoot = gltf.scene;
+    
+    deskRoot.traverse((child) => {
+        if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
 
-loader.load(
-  glbPath,
-  // 1. OnSuccess callback (runs when model is loaded)
-  (gltf) => {
-    deskRoot = gltf.scene; // The 'scene' property holds the 3D objects
-    // Go through every part of the model (traverse)
-    deskRoot.traverse((c) => {
-      if (c.isMesh) {
-        c.castShadow = true; // Make every part of the desk cast a shadow
-        c.receiveShadow = true; // And receive shadows
-      }
+            // 1. Screen Glow Logic
+            if (child.name.includes('Monitor_Screen')) {
+                monitorMesh = child;
+                child.material = new THREE.MeshStandardMaterial({
+                    color: 0x000000,
+                    emissive: 0x0073df, // Deep Blue
+                    emissiveIntensity: 4.0, // Stronger Glow
+                    roughness: 0.2,
+                    metalness: 0.5
+                });
+                
+                // Snap RectAreaLight to screen
+                const worldPos = new THREE.Vector3();
+                child.getWorldPosition(worldPos);
+                monitorLight.position.copy(worldPos);
+                monitorLight.translateZ(0.2); 
+            }
+            // 2. Matte Material for everything else
+            else {
+                if(child.material) {
+                    child.material.roughness = 0.9;
+                    child.material.metalness = 0.1;
+                }
+            }
+        }
+
+        // 3. Find the Anchor Collection/Empty
+        if (child.name.includes('Target_Desk')) {
+            targetDeskAnchor = child;
+        }
     });
 
-    // --- Smart Monitor-Finding Logic ---
-    // Try to find the screen by its exact name from Blender
-    monitorMesh = deskRoot.getObjectByName('monitor_screen') || deskRoot.getObjectByName('monitor') || deskRoot.getObjectByName('screen');
+    scene.add(deskRoot);
+
+    // --- SPOTLIGHT FIX ---
+    if (targetDeskAnchor) {
+        // Calculate center of the desk group
+        const box = new THREE.Box3().setFromObject(targetDeskAnchor);
+        const center = box.getCenter(new THREE.Vector3());
+
+        // Move the dummy target to the desk center
+        spotlightTarget.position.copy(center);
+        
+        // Move the light 7 units above that center
+        deskSpotlight.position.set(center.x, center.y + 7, center.z);
+        
+        // Turn it ON (High intensity because decay=2 fades fast)
+        deskSpotlight.intensity = 200; 
+    } else {
+        console.warn("Could not find 'Target_Desk'. Check Blender naming!");
+    }
     
-    // Find your specific clickable screen by its exact Blender name
-    monitorMesh = deskRoot.getObjectByName('Screen_Plane_clickable');
+    // Intro Animation
+    gsap.from(camera.position, {
+        y: 50,
+        duration: 2,
+        ease: "power3.out"
+    });
 
-    // Add a check so you know if it worked
-    if (!monitorMesh) {
-      console.error('CRITICAL: Could not find object named "Screen_Plane_clickable" in the model!');
-    }
+}, undefined, (error) => {
+    console.error('An error happened', error);
+});
 
-    scene.add(deskRoot); // Add the fully loaded desk to the world
 
-    // --- Pulsing Glow Effect (using GSAP) ---
-    // This makes the monitor "pulse" to show it's clickable
-    if (monitorMesh && monitorMesh.material && !Array.isArray(monitorMesh.material)) {
-      gsap.to(monitorMesh.material.color, { 
-          r: 0.3, g: 0.35, b: 0.75, // Target color
-          duration: 1.2, // seconds
-          yoyo: true, // Animate back and forth
-          repeat: -1, // Repeat forever
-          ease: 'sine.inOut' // Smooth animation curve
-      });
-    }
-  },
-  // 2. OnProgress callback (optional)
-  (xhr) => {
-    // console.log('Model progress', xhr.loaded / xhr.total);
-  },
-  // 3. OnError callback (runs if model fails to load)
-  (err) => {
-    console.warn('GLB load failed, building procedural desk instead. Error:', err);
-    buildProceduralDesk(); // Run the fallback function
-  }
-);
-
-// --- Fallback Desk (if GLB fails) ---
-// This function builds a desk from simple shapes (boxes, planes)
-// This is amazing for development, so the app *never* crashes.
-function buildProceduralDesk() {
-  // ... (all the code to build a desk from scratch) ...
-  // This code is complex but is just creating materials and geometries
-  // and positioning them, just like the floor plane.
-  // The important part is it also creates a "monitorMesh".
-  deskRoot = new THREE.Group();
-  const topMat = new THREE.MeshStandardMaterial({ color: 0x2b2f36, roughness: 0.6, metalness: 0.05 });
-  const deskTop = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.12, 1.2), topMat);
-  deskTop.position.set(0, 1, 0);
-  deskTop.castShadow = true;
-  deskTop.receiveShadow = true;
-  deskRoot.add(deskTop);
-  // ... (rest of the procedural desk code) ...
-  const screenMat = new THREE.MeshStandardMaterial({ color: 0x08102b, emissive: 0x001122, roughness: 0.3 });
-  monitorMesh = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.6), screenMat);
-  monitorMesh.name = 'monitor_screen';
-  monitorMesh.position.set(0, 1.5, -0.22);
-  deskRoot.add(monitorMesh);
-  scene.add(deskRoot);
-}
-
-// === 8. INTERACTIVITY (CLICK DETECTION) ===
-// Raycasting is like shooting a "laser" from the camera through the mouse
+// === 6. INTERACTION ===
 const raycaster = new THREE.Raycaster();
-const pointer = new THREE.Vector2(); // Stores mouse X, Y coords (-1 to +1)
+const pointer = new THREE.Vector2();
 
-function onPointerDown(e) {
-  // Get the size of the canvas on the page
-  const rect = renderer.domElement.getBoundingClientRect();
-  // Calculate the mouse position relative to the canvas
-  pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-  pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-  
-  // Update the "laser" to point from the camera through the mouse
-  raycaster.setFromCamera(pointer, camera);
+function onPointerDown(event) {
+    if(!controls.enabled) return;
 
-  // Get a list of all objects the "laser" hit
-  const intersects = raycaster.intersectObjects(scene.children, true); // 'true' means check inside models
+    const rect = renderer.domElement.getBoundingClientRect();
+    pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-  if (intersects.length > 0) {
-    const picked = intersects[0].object;
-    if (monitorMesh && (picked === monitorMesh || picked.uuid === monitorMesh.uuid || picked.name.toLowerCase().includes('monitor') || picked.name.toLowerCase().includes('screen'))) {
-      // openOverlay(); // <-- NO LONGER CALLED HERE
-      focusOnMonitor(); // <-- Just fly the camera
+    raycaster.setFromCamera(pointer, camera);
+    const intersects = raycaster.intersectObjects(scene.children, true);
+
+    if (intersects.length > 0) {
+        const object = intersects[0].object;
+        if (object === monitorMesh || object.name.includes('Desk') || object.name.includes('Screen')) {
+            moveToMonitor();
+        }
     }
-  }
 }
-// Listen for 'pointerdown' (click or tap) on the 3D canvas
-renderer.domElement.addEventListener('pointerdown', onPointerDown);
+window.addEventListener('pointerdown', onPointerDown);
 
-// === 9. HELPER FUNCTIONS ===
-// Camera "fly-to" animation
-function focusOnMonitor() {
-  if (!monitorMesh) return;
-
-  // --- GET THE NEW "SITTING" POV COORDS ---
-  const SIT_POS = { x: -3.4, y: 6.4, z: 3.27 }; 
-  const SIT_TARGET = { x: -3.44, y: 6.16, z: 4.22 };
-  
-  // We don't need the old logic, we're setting the exact position
-  const targetPos = new THREE.Vector3(SIT_POS.x, SIT_POS.y, SIT_POS.z);
-  const targetLookAt = new THREE.Vector3(SIT_TARGET.x, SIT_TARGET.y, SIT_TARGET.z);
-  
-  controls.enabled = false; // Disable controls *before* flying
-
-  gsap.to(camera.position, {
-    x: targetPos.x,
-    y: targetPos.y,
-    z: targetPos.z,
-    duration: 1.2, // A little longer
-    ease: 'power3.inOut',
-    onUpdate: () => {
-      camera.lookAt(targetLookAt);
-    },
-    onComplete: () => {
-      // --- CALLED *AFTER* ANIMATION FINISHES ---
-      openOverlay();
-    }
-  });
+// === 7. ANIMATION FUNCTIONS ===
+function moveToMonitor() {
+    controls.enabled = false;
+    gsap.to(camera.position, {
+        x: SIT_POS.x, y: SIT_POS.y, z: SIT_POS.z,
+        duration: 1.5, ease: "power2.inOut"
+    });
+    gsap.to(controls.target, {
+        x: SIT_TARGET.x, y: SIT_TARGET.y, z: SIT_TARGET.z,
+        duration: 1.5, ease: "power2.inOut",
+        onUpdate: () => { camera.lookAt(controls.target); },
+        onComplete: () => { openOverlay(); }
+    });
 }
 
-// Show the overlay
+function returnToOffice() {
+    hideOverlay();
+    gsap.to(camera.position, {
+        x: WIDE_SHOT_POS.x, y: WIDE_SHOT_POS.y, z: WIDE_SHOT_POS.z,
+        duration: 1.5, ease: "power2.inOut"
+    });
+    gsap.to(controls.target, {
+        x: WIDE_SHOT_TARGET.x, y: WIDE_SHOT_TARGET.y, z: WIDE_SHOT_TARGET.z,
+        duration: 1.5, ease: "power2.inOut",
+        onUpdate: () => { camera.lookAt(controls.target); },
+        onComplete: () => { controls.enabled = true; }
+    });
+}
+
+// === 8. UI HELPERS ===
 function openOverlay() {
-  overlay.classList.remove('hidden'); // Remove the .hidden CSS class
-  uiHint.style.display = 'none'; // Hide the text hint
-  controls.enabled = false; // Disable camera controls so you can't orbit
-  const iframe = document.getElementById('monitor-frame');
-  iframe.focus(); // Put keyboard focus inside the iframe (good for accessibility)
+    overlay.classList.remove('hidden');
+    uiHint.style.opacity = 0;
+    const iframe = document.getElementById('monitor-frame');
+    if(iframe) iframe.focus();
 }
 
-// Close the overlay (triggered by the 'X' button)
-closeBtn.addEventListener('click', () => {
-  overlay.classList.add('hidden');
-  uiHint.style.display = 'block';
-  
-  // Animate camera back to the saved WIDE_SHOT variables
-  gsap.to(camera.position, {
-    x: WIDE_SHOT_POS.x,
-    y: WIDE_SHOT_POS.y,
-    z: WIDE_SHOT_POS.z,
-    duration: 1.0,
-    ease: 'power3.inOut',
-    onUpdate: () => camera.lookAt(WIDE_SHOT_TARGET.x, WIDE_SHOT_TARGET.y, WIDE_SHOT_TARGET.z),
-    onComplete: () => {
-      controls.enabled = true; // Re-enable controls *after* flying back
-    }
-  });
-});
-
-// Allow closing the overlay with the "Escape" key
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
-    closeBtn.click(); // Just "click" the close button programmatically
-  }
-});
-
-// === 10. IDLE ANIMATION ===
-// Gently orbit the camera if the user is idle
-let idleTime = 0;
-function updateControlsIdle(dt) { // 'dt' is "delta time" - time since last frame
-  if (!controls.enabled) return; // Don't orbit if overlay is open
-  idleTime += dt;
-  
-  if (idleTime > 1.5) { // After 1.5 seconds of no interaction
-    // Use time to slowly move camera in a circle
-    const t = performance.now() * 0.00008;
-    camera.position.x = Math.sin(t) * 6;
-    camera.position.z = Math.cos(t) * 6;
-    camera.lookAt(0, 1, 0); // Keep looking at the center
-  }
+function hideOverlay() {
+    overlay.classList.add('hidden');
+    uiHint.style.opacity = 1;
 }
-// Reset idle timer when user interacts
-controls.addEventListener('start', () => { idleTime = 0; });
 
+closeBtn.addEventListener('click', returnToOffice);
 
-// === 11. THE "GAME LOOP" ===
-// This function runs 60 times per second
-// rendering loop
-let last = performance.now();
+// === 9. MAIN LOOP ===
 function animate() {
-  requestAnimationFrame(animate);
-  const now = performance.now();
-  const dt = (now - last) / 1000;
-  last = now;
-
-  // Only update controls if they are enabled!
-  if (controls.enabled) {
-    controls.update(); // <-- NOW IT'S SAFE
-  }
-  
-  renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
 }
-animate(); // Start the loop!
+animate();
 
-// === 12. WINDOW RESIZE HANDLER ===
-// This makes sure the 3D scene resizes cleanly when you resize the browser
 window.addEventListener('resize', () => {
-  const w = container.clientWidth;
-  const h = container.clientHeight;
-  camera.aspect = w / h; // Update camera's aspect ratio
-  camera.updateProjectionMatrix(); // Apply the change
-  renderer.setSize(w, h); // Resize the renderer's canvas
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
 });

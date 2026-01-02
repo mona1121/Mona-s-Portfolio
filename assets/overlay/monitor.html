@@ -1,74 +1,151 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
-  <title>Mona Alzahrani's Portfolio</title>
+  <title>Mona's Portfolio</title>
   <link rel="stylesheet" href="monitor-style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <div class="monitor-bezel">
+  <div class="wallpaper"></div>
 
-    <div class="desktop-background">
+  <div class="aero-container">
 
-      <div class="window">
+    <aside class="glass-panel left-sidebar">
+      <div class="profile-section">
+        <div class="profile-pic">
+           <div class="status-dot" title="Online"></div>
+        </div>
+        <h1>Mona</h1>
+        <p class="subtitle">Information Systems | Data Analyst</p>
+        
+        <div class="music-widget">
+          <i class="fa-solid fa-music"></i>
+          <marquee scrollamount="4">Now Playing: Dream On - Aerosmith</marquee>
+        </div>
+      </div>
 
-        <div class="title-bar">
+      <div class="social-grid">
+        <a href="mailto:mo1424r@gmail.com" class="glass-btn"><i class="fa-solid fa-envelope"></i> Email</a>
+        <a href="https://www.linkedin.com/in/monarashed-109760280/" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        <a href="https://github.com/mona1121" class="glass-btn" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+        <a href="/assets/overlay/img/resume.pdf" target="_blank" rel="noopener noreferrer" class="glass-btn"><i class="fa-solid fa-file-arrow-down"></i> Resume</a>
+      </div>
+
+
+      <div class="location-badge">
+        <i class="fa-solid fa-location-dot"></i> Jeddah, KSA
+      </div>
+    </aside>
+
+    <main class="glass-panel right-content">
+      
+      <div class="window-header">
+        <div class="window-title">Mona_Rashed_Alzahrani.com</div>
+        <div class="window-controls">
+          <span class="win-btn min">_</span>
+          <span class="win-btn max">□</span>
+          <span class="win-btn close">X</span>
+        </div>
+      </div>
+
+      <nav class="glossy-tabs">
+        <div class="tab active" data-tab="about"><i class="fa-solid fa-user"></i> About</div>
+        <div class="tab" data-tab="education"><i class="fa-solid fa-graduation-cap"></i> Education</div>
+        <div class="tab" data-tab="experience"><i class="fa-solid fa-briefcase"></i> Experience</div>
+        <div class="tab" data-tab="projects"><i class="fa-solid fa-code"></i> Projects</div>
+        <div class="tab" data-tab="skills"><i class="fa-solid fa-star"></i> Skills</div>
+      </nav>
+
+      <div class="content-viewport">
+        
+        <div id="about" class="tab-content active">
+  
+        <div class="hero-card">
+          <div class="hero-text">
+            <span class="greeting">Hello, I'm Mona! <span class="wave">👋</span></span>
+            <h2 class="typing-text">I turn complex data into stories.</h2>
+            <p>Information Systems Grad • Data Analyst • Creative Developer</p>
+          </div>
+          <div class="hero-decoration">
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+          </div>
         </div>
 
-        <div class="window-body">
+        <div class="about-grid">
+          
+          <div class="glass-card bio-box">
+            <h3><i class="fa-solid fa-person-rays"></i> Long Story Short</h3>
+            <p>
+              I recently graduated with an <strong>Information Systems degree</strong> and started working with <strong>data</strong> professionally.. 
+              <br><br>
+              I don't just look at numbers; I build the tools that analyze them. Whether it's Power BI dashboards, Python scripts, or full-stack apps.
+            </p>
+          </div>
 
-          <aside class="sidebar">
-            <div class="profile-icon"></div>
-            <h1>Mona</h1>
-            <ul class="contact-info">
-              <li><i class="fa-solid fa-phone"></i> +966536858736</li>
-              <li><i class="fa-solid fa-envelope"></i> mo1424r@gmail.com</li>
-              <li><i class="fa-solid fa-location-dot"></i> Jeddah, Saudi Arabia</li>
-            </ul>
-          </aside>
+          <div class="glass-card interests-box">
+            <h3><i class="fa-solid fa-bolt"></i> My Superpowers</h3>
+            <div class="interest-pill">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>
+              <span>Data Visualizing</span>
+            </div>
+            <div class="interest-pill">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>Analytical Thinking</span>
+            </div>
+            <div class="interest-pill">
+              <i class="fa-solid fa-brain"></i>
+              <span>Machine Learning</span>
+            </div>
+            <div class="interest-pill">
+              <i class="fa-solid fa-mobile-screen"></i>
+              <span>App Development</span>
+            </div>
+          </div>
 
-          <main class="main-content">
+        </div>
 
-            <nav class="tab-bar">
-              <div class="tab-bar-tabs">
-                <div class="tab active" data-tab="about">About Me</div>
-                <div class="tab" data-tab="education">Education</div>
-                <div class="tab" data-tab="experience">Experience</div>
-                <div class="tab" data-tab="projects">Projects</div>
-                <div class="tab" data-tab="skills">Skills</div>
-                
-              </div>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="stat-info">
+              <span class="stat-num">4.5</span>
+              <span class="stat-label">GPA</span>
+            </div>
+          </div>
 
-              <button id="close-btn-iframe" class="close-tab-btn">X</button>
-            </nav>
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fa-solid fa-language"></i></div>
+            <div class="stat-info">
+              <span class="stat-num">84</span>
+              <span class="stat-label">STEP</span>
+            </div>
+          </div>
 
-            <div class="content-area">
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fa-solid fa-mug-hot"></i></div>
+            <div class="stat-info">
+              <span class="stat-num">∞</span>
+              <span class="stat-label">Coffee</span>
+            </div>
+          </div>
+        </div>
 
-              <div id="about" class="tab-content active">
-                <h2>About Me</h2>
-                <p>
-                  I'm a recent Information Systems graduate with a passion for data analysis, machine learning, and
-                  mobile/web app development. I enjoy uncovering insights from complex data, building creative
-                  solutions, and developing applications that make a difference. I'm eager to learn, grow, and
-                  contribute to organizations that value curiosity and innovation.
-                </p>
-              </div>
+      </div>
 
-              <div id="education" class="tab-content">
-                  <h2>Education</h2>
-                  <div class="experience-list">
+        <div id="education" class="tab-content">
+                <h2>Education</h2>
+                <div class="experience-list">
 
                   <div class="experience-item">
                     <div class="exp-header">
-                      <div class="exp-logo"><img src="img/kau-logo.jpg" alt="KAU Logo">
-                      </div>
+                      <div class="exp-logo"><img src="img/kau-logo.jpg" alt="KAU Logo"></div>
                       <div class="exp-info">
                         <h3>Bachelor’s degree in Information Systems </h3>
                         <p>King Abdulaziz University (KAU)</p>
@@ -76,100 +153,113 @@
                       </div>
                     </div>
                     <div class="experience-details">
-                      <h4>Description & Certificates:</h4>
-                      <ul class="entry-details">
-                        <li>Managed data documentation of volunteer work across university departments, ensuring legal
-                          recognition through the Saudi National Platform for Volunteer Work.</li>
-                        <li>Compiled and analyzed monthly reports to track departmental performance and compliance with
-                          volunteering benchmarks.</li>
-                      </ul>
+                      <div class="glass-card task-box">
+                      <h3><i class="fa-duotone fa-solid fa-list-check"></i> Academic Achievements:</h3>
+                      <p>
+                        - Specialized in Decision Support Systems Track</br>
+                        - Graduated with Second Class Honors (GPA 4.45).</br>
+                       </p>
+                       </div>
+
                       <br>
                       <h4>Graduation Certificate</h4>
                       <div class="dashboard-screenshot">
                         <img src="img/grad-cert.png" alt="Graduation Certificate">
                       </div>
                       <br>
-                      <h4>Track Specialization Certificate</h4>
+                      <h4>Track Certificate</h4>
                       <div class="dashboard-screenshot">
-                        <img src="img/track-cert.png" alt="Track  Certificate">
+                        <img src="img/track-cert.png" alt="Graduation Certificate">
                       </div>
-                      <br>
-
                     </div>
                   </div>
 
+                  <h2>Certificate</h2>
                   <div class="experience-item">
                     <div class="exp-header">
-                      <div class="exp-logo">
-                        <img src="img/udacity-logo.png" alt="SGS Logo">
-                      </div>
+                      <div class="exp-logo"><img src="img/google-logo.jpg.png" alt="Udacity Logo"></div>
                       <div class="exp-info">
-                        <h3>Nanodegree in Cybersecurity for business leaders </h3>
+                        <h3>Google Data Analytics Specialization</h3>
+                        <p>Google</p>
+                        <p>Dec 2024</p>
+                      </div>
+                    </div>
+                    <div class="experience-details">
+                      <div class="glass-card task-box">
+                      <h3><i class="fa-duotone fa-solid fa-list-check"></i> Key Learnings:</h3>
+                      <p>
+                      - End-to-end data analysis: cleaning, analyzing, and visualizing data. </br>
+                      - SQL, spreadsheets, R, and Tableau for insights and reporting. </br>
+                      - Translating data findings into clear, actionable recommendations.
+                       </p>
+                       </div>
+
+                      <br>
+                      <h4>Certificate</h4>
+                      <div class="dashboard-screenshot">
+                        <img src="img/google-cert.png" alt="Google Certificate">
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="experience-item">
+                    <div class="exp-header">
+                      <div class="exp-logo"><img src="img/udacity-logo.png" alt="Udacity Logo"></div>
+                      <div class="exp-info">
+                        <h3>Nanodegree in Cybersecurity for Business Leaders </h3>
                         <p>Udacity</p>
                         <p>Jul 2023 - Aug 2023</p>
                       </div>
                     </div>
-
                     <div class="experience-details">
-                      <h4>Description & Projects:</h4>
-                      <ul class="entry-details">
-                        <li>Gained hands-on experience in data cleaning and preprocessing to extract valuable insights.
-                        </li>
-                        <li>Trained in web application development to automate departmental tasks into a unified
-                          platform.</li>
-                        <li>Utilized JavaScript to design and implement web-based solutions, improving operational
-                          efficiency.</li>
-                      </ul>
+                      <div class="glass-card task-box">
+                      <h3><i class="fa-duotone fa-solid fa-list-check"></i> Key Learnings:</h3>
+                      <p>
+                      - Assessed security risks and developed governance frameworks. </br>
+                      - Aligned cybersecurity strategies with business objectives.
+                       </p>
+                       </div>
                       <br>
-
                       <h4>Certificate</h4>
                       <div class="dashboard-screenshot">
-                        <img src="img/udacity-cert.png" alt="Dashboard Screenshot">
+                        <img src="img/udacity-cert.png" alt="Udacity Certificate">
                       </div>
-                      <br>
-                      
                     </div>
-
-                </div>
-
                   </div>
-                </div>
 
-              <div id="experience" class="tab-content">
-                <h2>Experience & Volunteer Work</h2>
+                </div>
+              </div>
+
+        <div id="experience" class="tab-content">
+                <h2>Professional Experience</h2>
 
                 <div class="experience-list">
 
                   <div class="experience-item">
                     <div class="exp-header">
-                      <div class="exp-logo"><img src="img/kau-logo.jpg" alt="KAU Logo">
-                      </div>
+                      <div class="exp-logo"><img src="img/panda-logo.jpg" alt="Panda Logo"></div>
                       <div class="exp-info">
-                        <h3>Volunteer Work Administration Assistant</h3>
-                        <p>King Abdulaziz University (KAU)</p>
-                        <p>Aug 2024 - Nov 2024</p>
+                        <h3>Commercial Excellence Intern</h3>
+                        <p>Panda Retail Company - Savola Groups</p>
+                        <p>Nov 2025 - Dec 2025 </p>
                       </div>
                     </div>
                     <div class="experience-details">
-                      <h4>Description & Certificates:</h4>
-                      <ul class="entry-details">
-                        <li>Managed data documentation of volunteer work across university departments, ensuring legal
-                          recognition through the Saudi National Platform for Volunteer Work.</li>
-                        <li>Compiled and analyzed monthly reports to track departmental performance and compliance with
-                          volunteering benchmarks.</li>
-                      </ul>
-                      <br>
-                      <div class="details-placeholder">
-                        Your certificate images or project snapshots will go here!
+                      <div class="glass-card task-box">
+                      <h3><i class="fa-duotone fa-solid fa-list-check"></i> Responsibilities:</h3>
+                      <p>
+                        - Analyze commercial data and retail metrics to identify growth opportunities.</br>
+                        - Collaborate with cross-functional teams to streamline operational processes.</br>
+                        - Develop and maintain dashboards using Excel and Power BI to track KPIs.
+                       </p>
+                       </div>
                       </div>
-                    </div>
                   </div>
 
                   <div class="experience-item">
                     <div class="exp-header">
-                      <div class="exp-logo">
-                        <img src="img/sgs-logo.jpg" alt="SGS Logo">
-                      </div>
+                      <div class="exp-logo"><img src="img/sgs-logo.jpg" alt="SGS Logo"></div>
                       <div class="exp-info">
                         <h3>Internship Trainee</h3>
                         <p>Saudi Ground Services (SGS)</p>
@@ -177,24 +267,16 @@
                       </div>
                     </div>
                     <div class="experience-details">
-                      <h4>Description & Projects:</h4>
-                      <ul class="entry-details">
-                        <li>Gained hands-on experience in data cleaning and preprocessing to extract valuable insights.
-                        </li>
-                        <li>Trained in web application development to automate departmental tasks into a unified
-                          platform.</li>
-                        <li>Utilized JavaScript to design and implement web-based solutions, improving operational
-                          efficiency.</li>
-                      </ul>
+                      <div class="glass-card task-box">
+                      <h3><i class="fa-duotone fa-solid fa-list-check"></i> Responsibilities</h3>
+                      <p>
+                        - Gained hands-on experience in data cleaning using Python.</br>
+                        - Designed a web-based solution using JavaScript to automate tasks.</br>
+                        - Improved operational efficiency by digitizing manual tracking logs.
+                       </p>
+                    </div>
                       <br>
-
-                      <h4>Dashboard Preview</h4>
-                      <div class="dashboard-screenshot">
-                        <img src="img/dashboard.png" alt="Dashboard Screenshot">
-                      </div>
-                      <br>
-
-                      <h4>Certificates Gained</h4>
+                      <h3>Courses</h3>
                       <div class="certificate-slider">
                         <button class="slider-arrow left">&lt;</button>
                         <div class="slider-viewport">
@@ -207,80 +289,166 @@
                         <button class="slider-arrow right">&gt;</button>
                       </div>
                     </div>
+                  </div>
 
-                </div>
+                  <h2>Volunteer Work</h2>
 
-                    <div class="experience-item">
-                      <div class="exp-header">
-                        <div class="exp-logo">
-                          <img src="img/newsletter.png" alt="Newsletter Logo">
-                        </div>
-                        <div class="exp-info">
-                          <h3>Creator and Manager of The Mail Weekly Newsletter</h3>
-                          <p>Culture and Art Committee in King Abdulaziz University</p>
-                          <p>Sept 2023 - Nov 2024</p>
-                        </div>
-                      </div>
-                      <div class="experience-details">
-                        <h4>Description:</h4>
-                        <ul class="entry-details">
-                          <li>Managed a weekly newsletter with 500 subscribers.</li>
-                          <li>Curated resources like courses and competitions to help students discover educational
-                            opportunities.</li>
-                        </ul>
+                  <div class="experience-item">
+                    <div class="exp-header">
+                      <div class="exp-logo"><img src="img/kau-logo.jpg" alt="KAU Logo"></div>
+                      <div class="exp-info">
+                        <h3>Volunteer Work Administration Assistant</h3>
+                        <p>King Abdulaziz University (KAU)</p>
+                        <p>Aug 2024 - Nov 2024</p>
                       </div>
                     </div>
+                    <div class="experience-details">
+                      <div class="glass-card task-box">
+                      <h3><i class="fa-duotone fa-solid fa-list-check"></i> Key Contributions</h3>
+                      <p>
+                        - Managed data documentation ensuring legal recognition via the Saudi National Platform</br>
+                        - Compiled and analyzed monthly reports to track departmental performance.
+                       </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="experience-item">
+                  <div class="exp-header">
+                    <div class="exp-logo"><img src="img/newsletter.png" alt="Newsletter Logo"></div>
+                    <div class="exp-info">
+                      <h3>Creator of The Mail Weekly Newsletter</h3>
+                      <p>Culture and Art Committee (KAU)</p>
+                      <p>Sept 2023 - Nov 2024</p>
+                    </div>
+                  </div>
+                  <div class="experience-details">
+                      <div class="glass-card task-box">
+                      <h3><i class="fa-duotone fa-solid fa-list-check"></i> Impact & Scope</h3>
+                      <p>
+                        <strong>- 500+ Subscribers: </strong> Managed weekly distribution and audience growth.</br>
+                        <strong>- Content Strategy: </strong> Contributed with creative article writing and curated high-value resources, cources and competitions</br>
+                        <strong>- Analytics: </strong> Monitored open rates and click-through rates to optimize content.
+                       </p>
+                    </div>
+                    
+                    <br>
+                    
+                    <h4><i class="fa-solid fa-earth-americas"></i> Live Preview</h4>
+                    <div class="browser-window">
+                      <div class="browser-toolbar">
+                        <div class="browser-controls">
+                          <span class="dot red"></span>
+                          <span class="dot yellow"></span>
+                          <span class="dot green"></span>
+                        </div>
+                        <div class="browser-address-bar">
+                          <i class="fa-solid fa-lock"></i>
+                          <span>newsletter-archive.com/mona-weekly</span>
+                        </div>
+                      </div>
+                      <div class="browser-content">
+                        <iframe src="https://us13.campaign-archive.com/?u=d195a41075c7b2a9c76a9e8fa&id=2e0dd93dae" title="Newsletter Archive"></iframe>
+                      </div>
+                    </div>
+                    <p style="font-size: 11px; text-align: center; margin-top: 5px; color: #666;">
+                      <em>*Interactive window: Press 'Past issues' to see more</em>
+                    </p>
 
                   </div>
                 </div>
 
-                <div id="projects" class="tab-content">
-                  <h2>Projects</h2>
-                  <div class="entry">
-                    <p class="entry-title">Pay-Ready System (2024)</p>
-                    <ul class="entry-details">
-                      <li>Developed a mobile-based solution to streamline in-store purchasing by enabling product
-                        scanning, electronic payments, and real-time invoice generation, eliminating checkout queues.
-                      </li>
-                      <li>Implemented features like product suggestions to enhance marketing efforts.</li>
-                      <li>Demonstrated problem-solving, teamwork, and communication skills throughout the project
-                        lifecycle.</li>
-                    </ul>
-                  </div>
                 </div>
-
-                <div id="skills" class="tab-content">
-                 <h2>Technical & Soft Skills</h2>
-            
-                  <h3>Programming Languages</h3>
-                  <div class="skills-grid">
-                    <div class="skill-item"><i class="fa-brands fa-java"></i><span>Java</span></div>
-                    <div class="skill-item"><i class="fa-brands fa-python"></i><span>Python</span></div>
-                    <div class="skill-item"><i class="fa-brands fa-r-project"></i><span>R</span></div>
-                    <div class="skill-item"><i class="fa-brands fa-js"></i><span>JavaScript</span></div>
-                    <div class="skill-item"><i class="fa-brands fa-html5"></i><span>HTML/CSS</span></div>
-                    <div class="skill-item"><i class="fa-solid fa-database"></i><span>SQL</span></div>
-                    <div class="skill-item"><i class="fa-solid fa-mobile-screen-button"></i><span>Flutter</span></div>
-                  </div>
-
-                    <h3>Tools</h3>
-                    <div class="skills-grid">
-                      <div class="skill-item"><i class="fa-solid fa-file-excel"></i><span>MS Excel</span></div>
-                      <div class="skill-item"><i class="fa-solid fa-chart-simple"></i><span>Power BI</span></div>
-                      <div class="skill-item"><i class="fa-brands fa-r-project"></i><span>RStudio</span></div>
-                      <div class="skill-item"><i class="fa-solid fa-gears"></i><span>RapidMiner</span></div>
-                      <div class="skill-item"><i class="fa-solid fa-database"></i><span>Oracle DB</span></div>
-                      <div class="skill-item"><i class="fa-solid fa-square-root-variable"></i><span>Matlab</span></div>
-                      <div class="skill-item"><i class="fa-solid fa-chart-pie"></i><span>Tableau</span></div>
-                    </div>
-
-                    <h3>Soft Skills</h3>
-                    <div class="entry">
-                      <p>Data Analysis and Visualization, Research Skills, Analytical Skills, Technical Writing, Strategic Planning, Teamwork, Flexibility, Adaptability.</p>
-                    </div>
-                  </div>
-
               </div>
+
+        <div id="projects" class="tab-content">
+                <h2>Projects</h2>
+                <div class="experience-list">
+
+                  <div class="experience-item">
+                    <div class="exp-header">
+                      <div class="exp-logo"><img src="img/payready-logo.png" alt="Pay Ready Logo"></div>
+                      <div class="exp-info">
+                        <h3>Pay Ready Mobile App</h3>
+                        <p>Graduation Project | 2024</p>
+                      </div>
+                    </div>
+                    <div class="experience-details">
+                       <div class="glass-card task-box">
+                      <h3><i class="fa-duotone fa-solid fa-list-check"></i> Overview:</h3>
+                      <p>
+                      - Developed a "Scan & Go" mobile solution to eliminate checkout queues. </br>
+                      - Integrated electronic payments and real-time invoice generation. </br>
+                      - Implemented a product recommendation engine for marketing.
+                       </p>
+                       </div>
+
+                      <br>
+                      <h4>Project Poster</h4>
+                      <div class="dashboard-screenshot">
+                        <img src="img/payready-poster.png" alt="Pay Ready Poster">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="experience-item">
+                    <div class="exp-header">
+                      <div class="exp-logo"><i class="fa-solid fa-desktop" style="font-size: 24px; color: #555;"></i></div>
+                      <div class="exp-info">
+                        <h3>Portfolio Website</h3>
+                        <p>Personal Project | 2025</p>
+                      </div>
+                    </div>
+                     <div class="experience-details">
+                       <div class="glass-card task-box">
+                      <h3><i class="fa-duotone fa-solid fa-list-check"></i> Overview:</h3>
+                      <p>
+                        <strong>3D Modeling:</strong> Designed and optimized the immersive office environment and assets using <strong>Blender</strong>. </br>
+                        <strong>Creative Coding:</strong> Developed the interactive 3D engine using <strong>Three.js</strong> and <strong>Vite</strong> to handle real-time rendering.</br>
+                        <strong>Frontend:</strong> Built a responsive "retro-monitor" UI overlay using <strong>HTML5</strong>, <strong>CSS3</strong>, and <strong>JavaScript</strong>.
+                       </p>
+                       </div>
+                      <br>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+        <div id="skills" class="tab-content">
+                <h2>Technical Proficiency</h2>
+                <p style="margin-bottom: 20px; color: #666;">A breakdown of my technical stack and capabilities.</p>
+
+                <h3 class="skill-category-title">Programming & Development</h3>
+                <div class="skills-wrapper">
+                  <div class="skill-chip"><i class="fa-brands fa-python"></i> Python</div>
+                  <div class="skill-chip"><i class="fa-brands fa-java"></i> Java</div>
+                  <div class="skill-chip"><i class="fa-brands fa-js"></i> JavaScript</div>
+                  <div class="skill-chip"><i class="fa-brands fa-html5"></i> HTML/CSS</div>
+                  <div class="skill-chip"><i class="fa-solid fa-database"></i> SQL</div>
+                  <div class="skill-chip"><i class="fa-solid fa-mobile-screen-button"></i> Flutter</div>
+                </div>
+
+                <h3 class="skill-category-title">Data Science & Tools</h3>
+                <div class="skills-wrapper">
+                  <div class="skill-chip"><i class="fa-solid fa-chart-simple"></i> Power BI</div>
+                  <div class="skill-chip"><i class="fa-solid fa-file-excel"></i> MS Excel (Advanced)</div>
+                  <div class="skill-chip"><i class="fa-brands fa-r-project"></i> R / RStudio</div>
+                  <div class="skill-chip"><i class="fa-solid fa-chart-pie"></i> Tableau</div>
+                  <div class="skill-chip"><i class="fa-solid fa-gears"></i> RapidMiner</div>
+                  <div class="skill-chip"><i class="fa-solid fa-database"></i> Oracle DB</div>
+                </div>
+
+                <h3 class="skill-category-title">Soft Skills</h3>
+                <div class="skills-wrapper">
+                  <div class="skill-chip"><i class="fa-solid fa-magnifying-glass-chart"></i> Data Analysis</div>
+                  <div class="skill-chip"><i class="fa-solid fa-brain"></i> Strategic Planning</div>
+                  <div class="skill-chip"><i class="fa-solid fa-pen-nib"></i> Technical Writing</div>
+                  <div class="skill-chip"><i class="fa-solid fa-users"></i> Teamwork</div>
+                </div>
+              </div>
+
+            </div>
           </main>
         </div>
       </div>
@@ -288,92 +456,82 @@
   </div>
 
 <script>
-    // --- THIS SCRIPT NOW CONTAINS ALL YOUR LOGIC ---
-
-    // 1. Tab Switching Logic
+    // Tab Logic
     const tabs = document.querySelectorAll('.tab');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const contents = document.querySelectorAll('.tab-content');
 
     tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(item => item.classList.remove('active'));
-        tabContents.forEach(item => item.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-      });
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.tab).classList.add('active');
+        });
     });
 
-    // 2. Close Button Logic
-    const iframeCloseButton = document.getElementById('close-btn-iframe');
-    iframeCloseButton.addEventListener('click', () => {
-      window.parent.document.getElementById('close-overlay').click();
-    });
-
-    // 3. Experience Accordion Logic
-    const experienceItems = document.querySelectorAll('.experience-item');
+    const monitorCloseBtn = document.querySelector('.win-btn.close');
     
+    if (monitorCloseBtn) {
+      monitorCloseBtn.addEventListener('click', () => {
+        // Communicate with the parent window (main.js)
+        if (window.parent && window.parent.document.getElementById('close-overlay')) {
+          // Programmatically click the hidden overlay button in the 3D scene
+          window.parent.document.getElementById('close-overlay').click();
+        }
+      });
+    }
+
+   // Accordion Logic
+    const experienceItems = document.querySelectorAll('.experience-item');
     experienceItems.forEach(item => {
-      item.addEventListener('click', () => {
-        // Find the details panel *inside* the clicked item
+      const header = item.querySelector('.exp-header');
+      header.addEventListener('click', () => {
         const details = item.querySelector('.experience-details');
+        const isShow = details.classList.contains('show');
         
-        // Toggle the 'show' class to make it visible/hidden
-        details.classList.toggle('show');
-        
-        // Also toggle an 'active' class on the item itself for styling
-        item.classList.toggle('active');
+        if (!isShow) {
+            details.classList.add('show');
+            item.classList.add('active');
+        } else {
+            details.classList.remove('show');
+            item.classList.remove('active');
+        }
       });
     });
-
-    // 4. NEW & FIXED: Certificate Slider Logic
+// Slider Logic
     const allSliders = document.querySelectorAll('.certificate-slider');
-
     allSliders.forEach(slider => {
       const track = slider.querySelector('.slider-track');
       const slides = Array.from(track.children);
       const nextButton = slider.querySelector('.slider-arrow.right');
       const prevButton = slider.querySelector('.slider-arrow.left');
       
-      // Stop clicks on the slider from closing the accordion
-      // This is a "fix" in addition to the button fix
-      slider.addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
-      
+      slider.addEventListener('click', (e) => { e.stopPropagation(); });
+
       let currentSlideIndex = 0;
 
-      // Function to move to a specific slide
       const moveToSlide = (targetIndex) => {
-        if (!track) return; // Safety check
+        if (!track) return;
         track.style.transform = 'translateX(-' + (targetIndex * 100) + '%)';
         currentSlideIndex = targetIndex;
       }
 
-      // When I click the right arrow...
       nextButton.addEventListener('click', e => {
-        e.stopPropagation(); // <-- THIS IS THE FIX! Stops the click from bubbling up
-        
+        e.stopPropagation(); 
         let nextIndex = currentSlideIndex + 1;
-        if (nextIndex >= slides.length) {
-          nextIndex = 0; // Loop back to the start
-        }
+        if (nextIndex >= slides.length) nextIndex = 0;
         moveToSlide(nextIndex);
       });
 
-      // When I click the left arrow...
       prevButton.addEventListener('click', e => {
-        e.stopPropagation(); // <-- THIS IS THE FIX! Stops the click from bubbling up
-        
+        e.stopPropagation(); 
         let prevIndex = currentSlideIndex - 1;
-        if (prevIndex < 0) {
-          prevIndex = slides.length - 1; // Loop to the end
-        }
+        if (prevIndex < 0) prevIndex = slides.length - 1; 
         moveToSlide(prevIndex);
       });
     });
 
-  </script>
-
+</script>
 </body>
-
 </html>

@@ -1,418 +1,366 @@
-/* Import the "Nunito" font */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+/* --- 1. FONTS & RESET --- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
-/* Basic setup */
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  font-family: 'Nunito', sans-serif;
-  font-size: 18px;
-  overflow: hidden;
-}
+* { box-sizing: border-box; }
 
-/* 1. The Monitor Bezel (WIDER AND GREYER) */
-.monitor-bezel {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  
-  /* Increased padding to make edges wider */
-  padding: 4.5vh 3.5vw; 
-  background: #D1D5DB; /* A more noticeable, neutral grey */
-  border-top: 4px solid #E5E7EB; /* 3D bevel highlights */
-  border-left: 4px solid #E5E7EB;
-  border-bottom: 4px solid #9CA3AF; /* 3D bevel shadows */
-  border-right: 4px solid #9CA3AF;
-  
-  box-shadow: inset 0 0 20px rgba(0,0,0,0.3); 
-  display: flex;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
 }
 
-/* 2. The Desktop "Screen" (Fits inside the bezel) */
-.desktop-background {
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  
-  background-image: url('img/desktop.jpg');
-  background-size: cover;
-  background-position: center;
-  
-  border-radius: 6px;
-  overflow: hidden;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2vh 2vw;
+/* --- 2. BACKGROUND & LAYOUT (RESTORED 2000s VIBE) --- */
+/* The Frutiger Aero Background */
+.wallpaper {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* MAKE SURE YOU HAVE A 'desktop.jpg' in your img folder for this vibe */
+    background: url('img/desktop.jpg') no-repeat center center/cover;
+    z-index: -1;
 }
 
-/* 3. The Main Window */
-.window {
-  width: 87%;
-  height: 90%;
-  background: rgba(230, 240, 255, 0.7);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+/* Main Layout Container */
+.aero-container {
+    display: flex;
+    gap: 20px;
+    width: 90%;
+    max-width: 1100px;
+    height: 85vh;
 }
 
-/* 4. The Window's Title Bar (BUTTONS REMOVED) */
-.title-bar {
-  background: linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(200,210,230,0.6));
-  padding: 8px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  /* The button styles that were here are now gone */
+/* Glass Panel Utility Class (Milky 2000s look) */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.65); /* Milky transparent white */
+    backdrop-filter: blur(20px); /* Heavy blur */
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: 
+        0 15px 35px rgba(0,0,0,0.2), 
+        inset 0 0 20px rgba(255,255,255,0.5); /* Inner glow */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-/* 5. Main Content Container (Sidebar + Content) */
-.window-body {
-  display: flex;
-  flex: 1;
-  min-height: 0;
+/* --- 3. LEFT SIDEBAR --- */
+.left-sidebar {
+    flex: 0 0 300px; /* Fixed width */
+    padding: 30px 20px;
+    text-align: center;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 100%);
 }
 
-/* 6. Left Sidebar */
-.sidebar {
-  width: 150px;
-  background: rgba(255, 255, 255, 0.3);
-  border-right: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 20px;
-  text-align: center;
-  color: #1E3A8A;
-}
-.sidebar .profile-icon {
-  width: 100px;
-  height: 100px;
-  background-image: url("img/pfp.png");
-  border-radius: 50%;
-  margin: 0 auto 15px auto;
-  border: 4px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.profile-section { margin-bottom: 20px; }
 
-  background-size: cover;
-  background-position: center;
-}
-.sidebar h1 {
-  font-size: 28px;
-  margin: 0 0 15px 0;
-}
-.sidebar .contact-info {
-  list-style: none;
-  padding: 0;
-  text-align: left;
-  font-size: 13px;
-}
-.sidebar .contact-info li {
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.sidebar .contact-info i {
-  color: #3B82F6;
-  width: 16px;
+.profile-pic {
+    width: 120px; height: 120px;
+    background-image: url('img/pfp.png'); /* Ensure correct path */
+    background-size: cover; background-position: center;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    margin: 0 auto 15px auto; position: relative;
 }
 
-/* 7. Right Content Area (Tabs + Content) */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
+.status-dot {
+    position: absolute; bottom: 5px; right: 5px; width: 20px; height: 20px;
+    background: #4ade80; border: 3px solid white; border-radius: 50%;
+    box-shadow: 0 0 10px #4ade80;
 }
 
-/* 8. Tab Navigation Bar (UPDATED FOR CLOSE BUTTON) */
-.tab-bar {
-  display: flex;
-  justify-content: space-between; /* Pushes button to the right */
-  align-items: center; /* Vertically centers button */
-  padding: 10px 10px 0 20px; /* Adjusted padding */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  flex-shrink: 0;
+.left-sidebar h1 {
+    margin: 5px 0; font-size: 28px; color: #1e3a8a;
+    text-shadow: 0 2px 5px rgba(255,255,255,1);
 }
-.tab-bar-tabs {
-  display: flex; /* This new wrapper holds the tabs */
+
+.subtitle { margin: 0 0 20px 0; color: #555; font-size: 14px; font-weight: 600; }
+
+.music-widget {
+    background: rgba(0,0,0,0.05); border-radius: 50px; padding: 8px 15px;
+    display: flex; align-items: center; gap: 10px; font-size: 12px; color: #555;
+    margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.5);
 }
+
+.social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+
+.glass-btn {
+    text-decoration: none;
+    background: linear-gradient(to bottom, #ffffff, #e0f2fe);
+    padding: 10px; border-radius: 12px; color: #0369a1;
+    font-weight: 700; font-size: 14px; border: 1px solid #bae6fd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+
+.glass-btn:hover {
+    transform: translateY(-2px); box-shadow: 0 5px 12px rgba(3, 105, 161, 0.2);
+    background: linear-gradient(to bottom, #ffffff, #bae6fd);
+}
+
+.location-badge {
+    margin-top: auto; background: rgba(255,255,255,0.5);
+    padding: 8px 15px; border-radius: 20px; font-size: 13px; color: #4b5563;
+}
+
+/* --- 4. RIGHT CONTENT & NAVIGATION --- */
+.right-content { flex: 1; position: relative; }
+
+.window-header {
+    background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0));
+    padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.5);
+    display: flex; justify-content: space-between; align-items: center;
+}
+.window-title { font-weight: bold; color: #444; font-size: 14px; }
+.window-controls { display: flex; gap: 8px; }
+.win-btn {
+    width: 20px; height: 20px; background: white; border-radius: 4px;
+    text-align: center; line-height: 20px; font-size: 10px; cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.close:hover { background: #ff7b7b; color: white; }
+
+/* Navigation Tabs */
+.glossy-tabs {
+    display: flex; padding: 15px 20px 0 20px; gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    overflow-x: auto; scrollbar-width: none; /* Hide scrollbar */
+}
+.glossy-tabs::-webkit-scrollbar { display: none; }
+
 .tab {
-  padding: 10px 20px;
-  cursor: pointer;
-  color: #374151;
-  border: 1px solid transparent;
-  border-bottom: none;
-  border-radius: 6px 6px 0 0;
+    padding: 10px 20px; background: rgba(255,255,255,0.3);
+    border-radius: 10px 10px 0 0; cursor: pointer; font-weight: 600;
+    color: #555; transition: all 0.2s; font-size: 15px; border: 1px solid transparent;
+    display: flex; align-items: center; gap: 8px; white-space: nowrap;
 }
+.tab:hover { background: rgba(255,255,255,0.6); }
 .tab.active {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: rgba(255, 255, 255, 0.5);
-  color: #1E3A8A;
-  font-weight: bold;
+    background: rgba(255,255,255,0.85); color: #0284c7;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05); border-top: 2px solid #0ea5e9;
 }
 
-/* 9. Scrollable Content Area */
-.content-area {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  color: #111827;
+/* Content Area */
+.content-viewport {
+    flex: 1; padding: 25px; overflow-y: auto;
+    scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent;
 }
-.tab-content { display: none; }
+
+.tab-content { display: none; animation: fadeIn 0.4s ease; }
 .tab-content.active { display: block; }
-.tab-content h2 {
-  font-size: 22px;
-  color: #1E3A8A;
-  margin-top: 0;
-  border-bottom: 2px solid #BFDBFE;
-  padding-bottom: 5px;
-}
-.entry { margin-bottom: 20px; }
-.entry-title { font-weight: bold; font-size: 16px; }
-.entry-subtitle { color: #4B5563; margin-bottom: 5px; }
-.entry-details { list-style-type: '– '; padding-left: 20px; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* 10. NEW: CLOSE BUTTON FOR TAB BAR */
-.close-tab-btn {
-  background: #F1F5F9;
-  border: 1px solid #CBD5E1;
-  color: #64748B;
-  font-weight: bold;
-  font-size: 16px;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  line-height: 28px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.close-tab-btn:hover {
-  background: #FEE2E2; /* Red background on hover */
-  color: #DC2626; /* Red text on hover */
-  border-color: #FCA5A5;
+h2 { color: #0369a1; margin-top: 0; }
+
+/* --- 5. ABOUT SECTION STYLES --- */
+.hero-card {
+  display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+  margin-bottom: 20px; min-height: 140px;
+  border-radius: 16px; padding: 20px; position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.8);
 }
 
+.hero-text { z-index: 2; }
+.greeting { font-size: 14px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.wave { display: inline-block; animation: wave-animation 2.5s infinite; transform-origin: 70% 70%; }
+@keyframes wave-animation { 0% { transform: rotate( 0.0deg) } 10% { transform: rotate(14.0deg) } 20% { transform: rotate(-8.0deg) } 30% { transform: rotate(14.0deg) } 40% { transform: rotate(-4.0deg) } 50% { transform: rotate(10.0deg) } 60% { transform: rotate( 0.0deg) } 100% { transform: rotate( 0.0deg) } }
+.hero-card h2 { font-size: 26px; color: #0369a1; margin: 5px 0; font-weight: 800; }
+.hero-card p { margin: 0; color: #334155; font-size: 14px; }
 
-/* 1. The list container */
-.experience-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Spacing between items */
+.hero-decoration { position: absolute; right: 0; top: 0; bottom: 0; width: 150px; overflow: hidden; z-index: 1; pointer-events: none; }
+.circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.4); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.5); }
+.c1 { width: 80px; height: 80px; top: -20px; right: -20px; animation: float 6s ease-in-out infinite; }
+.c2 { width: 50px; height: 50px; bottom: 20px; right: 40px; animation: float 4s ease-in-out infinite reverse; }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+.about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; margin-bottom: 20px; }
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 100%);
+  border: 1px solid rgba(255,255,255,0.9); border-radius: 16px; padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.glass-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
 
-/* 2. Each clickable item */
+.bio-box h3, .interests-box h3 { margin-top: 0; color: #1e3a8a; font-size: 16px; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 8px; margin-bottom: 12px; }
+.bio-box p { color: #475569; line-height: 1.6; font-size: 14px; margin: 0; }
+
+.task-box h3, .interests-box h3 { margin-top: 0; color: #1e3a8a; font-size: 14px; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 8px; margin-bottom: 12px; }
+.task-box p { color: #475569; line-height: 1.6; font-size: 14px; margin: 0; }
+
+.interests-box { display: flex; flex-direction: column; gap: 10px; }
+.interest-pill { display: flex; align-items: center; gap: 10px; background: white; padding: 10px 15px; border-radius: 10px; font-size: 13px; color: #334155; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.03); transition: transform 0.2s; }
+.interest-pill:hover { transform: translateX(5px); color: #0284c7; }
+.interest-pill i { color: #38bdf8; font-size: 16px; }
+
+.stats-row { display: flex; justify-content: space-between; gap: 15px; }
+.stat-item { flex: 1; background: rgba(255,255,255,0.6); border: 1px solid white; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; transition: transform 0.2s; }
+.stat-item:hover { transform: scale(1.05); background: rgba(255,255,255,0.9); }
+.stat-icon { width: 45px; height: 45px; background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: #0ea5e9; font-size: 20px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
+.stat-info { display: flex; flex-direction: column; }
+.stat-num { font-size: 20px; font-weight: 800; color: #0f172a; line-height: 1; }
+.stat-label { font-size: 11px; color: #64748b; text-transform: uppercase; margin-top: 3px; font-weight: 700; }
+
+/* --- 6. ACCORDION & LISTS (IMAGE FIXES HERE) --- */
+.experience-list { display: flex; flex-direction: column; gap: 15px; }
+
 .experience-item {
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  padding: 15px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background: rgba(255,255,255,0.5); border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.6); transition: background 0.2s;
 }
+.experience-item:hover { background: rgba(255,255,255,0.7); }
 
-/* 3. Hover and Active (Clicked) states */
-.experience-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-.experience-item.active {
-  box-shadow: 0 0 10px rgba(60, 130, 246, 0.5); /* Blue glow */
-  border-color: rgba(60, 130, 246, 0.8);
-}
+.exp-header { display: flex; padding: 15px; cursor: pointer; align-items: center; gap: 15px; }
 
-/* 4. The header part of the item (logo + info) */
-.exp-header {
-  display: flex;
-  align-items: center;
-}
-
-/* 5. The company logo placeholder */
+/* === FIX 1: LOGO SCALING === */
 .exp-logo {
-  width: 60px;
-  height: 60px;
-  background: #ffffff;
-  border-radius: 6px;
-  margin-right: 15px;
-  flex-shrink: 0;
-  
-  /* This ensures the image doesn't overflow the rounded corners */
-  overflow: hidden; 
+    width: 60px; /* Fixed square size */
+    height: 60px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px; /* Breathing room so logo doesn't touch edges */
 }
 
 .exp-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* This "zooms" the image to fit, no stretching */
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* THIS ENSURES IT SCALES WITHOUT CROPPING */
 }
+/* =========================== */
 
-/* 6. The text info container */
-.exp-info {
-  flex: 1;
-}
-.exp-info h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 700;
-  color: #1E3A8A;
-}
-.exp-info p {
-  margin: 2px 0 0 0;
-  font-size: 14px;
-  color: #4B5563;
-}
+.exp-info h3 { margin: 0; font-size: 15px; color: #1e3a8a; }
+.exp-info p { margin: 0; font-size: 12px; color: #666; }
 
-/* 7. The HIDDEN details panel */
 .experience-details {
-  /* This is the magic! Hidden by default. */
-  display: none; 
-  padding-top: 15px;
-  margin-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.8);
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
+    background: rgba(255,255,255,0.3); padding: 0 15px;
 }
-.experience-details.show {
-  /* This class (added by JS) makes it visible */
-  display: block; 
-}
-.experience-details h4 {
-  margin: 0 0 10px 0;
-  color: #1E3A8A;
-}
-/* This is a placeholder for your future images */
-.details-placeholder {
-  width: 100%;
-  height: 150px;
-  background: rgba(0,0,0,0.05);
-  border: 2px dashed #B0BEC5;
-  border-radius: 6px;
-  display: grid;
-  place-items: center;
-  color: #64748B;
-}
+.experience-details.show { max-height: 1500px; padding: 0 15px 15px 15px; }
+.entry-details { font-size: 14px; color: #444; padding-left: 20px; padding-top: 10px; }
+.entry-details li { margin-bottom: 5px; }
 
-/* Styles for the Dashboard Screenshot */
-.dashboard-screenshot {
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+/* === FIX 2: SCREENSHOT/CERTIFICATE SCALING === */
+.dashboard-screenshot img, .slider-track img, .gallery-preview img {
+    max-width: 100%; /* Ensure it fits the width */
+    height: auto;    /* Maintain aspect ratio so it's not squished */
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.5);
+    display: block;
+    margin-top: 10px;
 }
-.dashboard-screenshot img {
-  width: 100%;
-  display: block; /* Removes tiny space below image */
-}
+/* ============================================ */
 
-/* Styles for the Certificate Slider */
-.certificate-slider {
-  /* position: relative; */ /* <-- DELETE THIS LINE */
-  margin-top: 10px;
-  display: flex; /* <-- ADD THIS */
-  align-items: center; /* <-- ADD THIS */
-  gap: 8px; /* <-- ADD THIS (for spacing) */
-}
-.slider-viewport {
-  width: 100%;
-  overflow: hidden; 
-  border-radius: 6px;
-  flex: 1; /* <-- ADD THIS (tells it to fill the middle space) */
-}
-.slider-track {
-  display: flex;
-  transition: transform 0.4s ease-in-out;
-}
-.cert-image {
-  width: 100%;
-  flex-shrink: 0;
-  display: block;
-}
-
-/* Styles for the < and > Arrows */
+/* --- 7. SLIDER & SKILLS --- */
+.certificate-slider { position: relative; width: 100%; overflow: hidden; margin-top: 15px; }
+.slider-viewport { overflow: hidden; border-radius: 8px; }
+.slider-track { display: flex; transition: transform 0.3s ease-in-out; }
+.cert-image { width: 100%; flex-shrink: 0; }
 .slider-arrow {
-  /* --- DELETE ALL THESE LINES --- */
-  /* position: absolute; */
-  /* top: 50%; */
-  /* transform: translateY(-50%); */
-
-  /* --- KEEP/ADD THESE --- */
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #3B82F6;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  flex-shrink: 0; /* <-- ADD THIS (stops them from squishing) */
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.7); color: #0369a1; border: 1px solid white;
+    padding: 8px; cursor: pointer; z-index: 10; border-radius: 50%;
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.slider-arrow:hover {
-  background: #3B82F6;
-  color: white;
-}
+.slider-arrow.left { left: 10px; }
+.slider-arrow.right { right: 10px; }
+.slider-arrow:hover { background: white; }
 
-/* Style for the subheadings (e.g., "Programming Languages") */
-.tab-content h3 {
-  font-size: 18px;
-  color: #3B82F6; /* Blue color */
-  margin-top: 25px;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #D1D5DB;
+.skill-category-title {
+    color: #1e3a8a; font-size: 1.1rem; margin-top: 25px; margin-bottom: 15px;
+    border-bottom: 2px solid rgba(255,255,255,0.5); padding-bottom: 5px; font-weight: 700;
 }
+.skills-wrapper { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.skill-chip {
+    background: white; border: 1px solid rgba(255,255,255,0.8); border-radius: 20px;
+    padding: 8px 16px; display: flex; align-items: center; gap: 8px;
+    font-size: 0.95rem; color: #444; font-weight: 600;
+    transition: all 0.2s ease; cursor: default; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.skill-chip:hover {
+    transform: translateY(-2px); box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    border-color: #38bdf8; color: #0284c7;
+}
+.skill-chip i { font-size: 1.1rem; color: #0ea5e9; }
 
-/* The grid container */
-.skills-grid {
-  display: grid;
-  /* Creates a responsive grid that fits as many items as possible */
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 15px;
+/* --- MINI BROWSER COMPONENT --- */
+.browser-window {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Individual skill item card */
-.skill-item {
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+.browser-toolbar {
+    background: linear-gradient(to bottom, #ffffff, #e2e8f0);
+    padding: 8px 12px;
+    border-bottom: 1px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-/* Hover effect for the skill items */
-.skill-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 0.8);
+.browser-controls {
+    display: flex;
+    gap: 6px;
 }
 
-/* The icon style */
-.skill-item i {
-  font-size: 36px; /* Larger icon */
-  color: #1E3A8A; /* Dark blue */
-  margin-bottom: 10px;
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.dot.red { background: #ff5f57; border: 1px solid #e0443e; }
+.dot.yellow { background: #ffbd2e; border: 1px solid #dea123; }
+.dot.green { background: #28c940; border: 1px solid #1aab29; }
+
+.browser-address-bar {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
 }
 
-/* The text label style */
-.skill-item span {
-  font-size: 13px;
-  font-weight: 600;
-  color: #374151; /* Dark grey text */
+.browser-address-bar i { color: #10b981; } /* Lock icon color */
+
+.browser-content {
+    height: 350px; /* Adjust height as needed */
+    width: 100%;
+    background: white;
+    position: relative;
 }
 
-/* --- END OF NEW CSS --- */
+.browser-content iframe {
+    width: 155%;            /* 1. Make the internal window wider so text fits */
+    height: 145%;           /* 2. Make it taller to match the scale */
+    transform: scale(0.69); /* 3. Shrink it back down to fit the container */
+    transform-origin: top left; /* 4. Anchor it to the top-left corner */
+    border: none;
+    display: block;
+}
