@@ -127,7 +127,7 @@ loader.load('/assets/office.glb', (gltf) => {
     });
 
     scene.add(deskRoot);
-
+    
     // --- SPOTLIGHT FIX ---
     if (targetDeskAnchor) {
         // Calculate center of the desk group
@@ -151,8 +151,13 @@ loader.load('/assets/office.glb', (gltf) => {
         y: 50,
         duration: 2,
         ease: "power3.out"
-    });
-
+    }
+);
+const loadingScreen = document.getElementById('loading-screen');
+    if(loadingScreen) {
+        loadingScreen.classList.add('fade-out');
+        setTimeout(() => loadingScreen.remove(), 500);
+    }
 }, undefined, (error) => {
     console.error('An error happened', error);
 });
