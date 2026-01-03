@@ -365,71 +365,56 @@ h2 { color: #0369a1; margin-top: 0; }
     display: block;
 }
 
-/* =========================================
-   MOBILE OPTIMIZATION (Only affects phones)
-   ========================================= */
+/*
+   1. DESKTOP SAFETY LOCK
+   Prevents the layout from breaking on small browser windows
+ */
+.aero-container {
+    min-width: 950px;  /* Force the monitor to stay wide */
+    transform-origin: center; /* Prepare for scaling */
+}
+
+ 
+ /*  MOBILE: VERTICALLY CENTERED + READABLE */
+
 @media screen and (max-width: 768px) {
+    
+    /* 1. Lock the Wallpaper (No scrolling background) */
+    .wallpaper, body {
+        background-attachment: fixed;
+        background-size: cover;
+        position: fixed; 
+        top: 0; left: 0; width: 100%; height: 100%; 
+        z-index: -1;
+    }
 
-    /* 1. Stack items vertically instead of side-by-side */
+    /* 2. Center the content Vertically */
+    body {
+        position: static;
+        overflow-x: auto;      /* Allow sideways scrolling */
+        overflow-y: hidden;    /* No vertical scrolling needed usually */
+        
+        display: flex;
+        align-items:center;   /* THIS puts it in the Vertical Middle */
+        justify-content: flex-start; /* Start from left (safe for scrolling) */
+        
+        height: 100%;
+        padding-left: 20px;    /* Adds a nice gap on the left */
+        padding-right: 20px;   /* Adds a gap on the right for scrolling */
+    }
+
+    /* 3. The Monitor Configuration */
     .aero-container {
-        flex-direction: column; 
-        width: 100%;
-        height: 100vh; /* Use full screen height on mobile */
-        max-height: none;
-        border-radius: 0; /* Remove rounded corners to fit screen */
-        overflow: hidden;
-    }
-
-    /* 2. Fix the Sidebar (Profile) */
-    .left-sidebar {
-        width: 100%;        /* Full width */
-        height: auto;       /* Height adjusts to content */
-        flex: 0 0 auto;     /* Don't stretch */
-        padding: 15px;
-        display: flex;      /* Make profile compact */
-        flex-direction: column;
-        align-items: center;
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    /* Make the profile picture smaller on mobile to save space */
-    .profile-pic {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 10px;
-    }
-    
-    /* Hide the music widget on mobile if it takes too much space */
-    .music-widget {
-        display: none; 
-    }
-
-    /* 3. Fix the Content Area (Right side) */
-    .right-content {
-        width: 100%;
-        flex: 1;            /* Take up all remaining vertical space */
-        overflow-y: auto;   /* Allow scrolling inside this area */
-        padding: 15px;
-    }
-
-    /* 4. Adjust the Navigation Tabs */
-    .glossy-tabs {
-        flex-wrap: nowrap;
-        overflow-x: auto;   /* Scroll sideways if tabs don't fit */
-        padding-bottom: 5px;
-        justify-content: flex-start;
-        gap: 10px;
-    }
-    
-    .tab {
-        font-size: 12px;    /* Smaller text */
-        padding: 8px 12px;
-        white-space: nowrap; /* Don't break text */
-    }
-
-    /* 5. Hide the window controls (Minimize/Maximize) on mobile */
-    .window-controls {
-        display: none;
+        width: 950px !important; /* Keep desktop layout */
+        
+        /* Scale 0.55: Big enough to read, small enough to fit nicely */
+        transform: scale(0.75); 
+        transform-origin: left center; /* Scale from the left/middle */
+        
+        /* Reset margins/positioning */
+        margin: 0;
+        left: auto;
+        top: auto;
+        flex-shrink: 0; /* Prevents flexbox from squishing it */
     }
 }
