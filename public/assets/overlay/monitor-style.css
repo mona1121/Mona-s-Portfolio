@@ -376,45 +376,55 @@ h2 { color: #0369a1; margin-top: 0; }
 
  
  /*  MOBILE: VERTICALLY CENTERED + READABLE */
-
+ 
 @media screen and (max-width: 768px) {
     
-    /* 1. Lock the Wallpaper (No scrolling background) */
+    /* 1. Lock the Wallpaper to the Viewport */
     .wallpaper, body {
-        background-attachment: fixed;
+        background-attachment: fixed !important;
         background-size: cover;
+        background-position: center;
         position: fixed; 
-        top: 0; left: 0; width: 100%; height: 100%; 
+        top: 0; 
+        left: 0; 
+        width: 100vw; 
+        height: 100vh; 
         z-index: -1;
+        overflow: hidden; /* Prevent the background layer from scrolling */
     }
 
-    /* 2. Center the content Vertically */
+    /* 2. Create a Scrollable Layer for the Monitor */
+    html {
+        overflow-x: auto;  /* Allow horizontal swipe */
+        overflow-y: hidden; /* Lock vertical scroll */
+        height: 100%;
+    }
+
     body {
-        position: static;
-        overflow-x: auto;      /* Allow sideways scrolling */
-        overflow-y: hidden;    /* No vertical scrolling needed usually */
-        
+        position: relative;
         display: flex;
-        align-items:center;   /* THIS puts it in the Vertical Middle */
-        justify-content: flex-start; /* Start from left (safe for scrolling) */
-        
+        align-items: center;    /* Vertical center */
+        justify-content: flex-start; 
         height: 100vh;
         width: 100vw;
-        margin: 0 !important;
-        padding: 0 !important;
+        margin: 0;
+        padding: 0;
+        background-color: transparent; /* Show the fixed wallpaper underneath */
     }
 
     /* 3. The Monitor Configuration */
     .aero-container {
-        width: 950px !important; /* Keep desktop layout */
+        width: 950px !important; 
+        transform: scale(0.6);   /* Adjust scale as needed for readability */
+        transform-origin: left center;
         
-        /* Scale 0.55: Big enough to read, small enough to fit nicely */
-        transform: scale(0.75); 
-        transform-origin: left center; /* Scale from the left/middle */
-        
-        /* Reset margins/positioning */
+        /* Remove internal padding/margins to touch the left edge */
         margin: 0 !important;
         padding: 0 !important;
-        flex-shrink: 0; /* Prevents flexbox from squishing it */
+        flex-shrink: 0;
+        
+        /* Ensure it sits above the fixed background */
+        position: relative;
+        z-index: 1;
     }
 }
