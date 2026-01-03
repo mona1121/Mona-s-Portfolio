@@ -238,6 +238,17 @@ function animate() {
 }
 animate();
 
+// This simulates a "window resize" to wake up the camera immediately
+window.addEventListener('load', () => {
+    // 1. Force size update
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    
+    // 2. Force a single render frame immediately
+    renderer.render(scene, camera);
+});
+
 window.addEventListener('resize', () => {
     camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();

@@ -398,9 +398,10 @@ h2 { color: #0369a1; margin-top: 0; }
         align-items:center;   /* THIS puts it in the Vertical Middle */
         justify-content: flex-start; /* Start from left (safe for scrolling) */
         
-        height: 100%;
-        padding-left: 0;    /* Adds a nice gap on the left */
-        padding-right: 0;   /* Adds a gap on the right for scrolling */
+        height: 100vh;
+        width: 100vw;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     /* 3. The Monitor Configuration */
@@ -412,9 +413,8 @@ h2 { color: #0369a1; margin-top: 0; }
         transform-origin: left center; /* Scale from the left/middle */
         
         /* Reset margins/positioning */
-        margin: 0;
-        left: auto;
-        top: auto;
+        margin: 0 !important;
+        padding: 0 !important;
         flex-shrink: 0; /* Prevents flexbox from squishing it */
     }
 }
