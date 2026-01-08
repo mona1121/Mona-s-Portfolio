@@ -152,6 +152,7 @@ body {
 .content-viewport {
     flex: 1; padding: 25px; overflow-y: auto;
     scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent;
+    -webkit-overflow-scrolling: touch;
 }
 
 .tab-content { display: none; animation: fadeIn 0.4s ease; }
@@ -405,7 +406,8 @@ h2 { color: #0369a1; margin-top: 0; }
         /* FIX THE GAP: Let height adjust to content! */
         height: auto !important;     /* <--- This kills the empty space */
         min-height: 0 !important;    /* <--- Overrides desktop default */
-        
+        max-height: 140vh !important;
+
         /* SCALE & LAYOUT */
         width: 950px !important;
         transform: translateY(-50%) scale(0.6); 
